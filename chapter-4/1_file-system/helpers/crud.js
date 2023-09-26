@@ -1,7 +1,6 @@
 const fs = require('fs');
 const posts = require('../database/posts');
 const PostModel = require('../models/post');
-const { profile, error } = require('console');
 
 function create(title, body) {
     let newPost = new PostModel(posts.id++, title, body);
@@ -24,9 +23,7 @@ function show(id) {
     }
  } 
 
-
 function update(id, title, body) { }
-
 
 function destroy(id) {
     try {
