@@ -9,7 +9,17 @@ function create(title, body) {
     fs.writeFileSync('./database/posts.json', JSON.stringify(posts, null, 4));
 }
 
-function index() { }
+function index() {
+    const data = posts.data;
+    if (data.length == 0) {
+      throw new Error("Tidak ada data.");
+    } else {
+      console.log("Data: ");
+      data.forEach((data) => {
+        console.log(`ID: ${data.id}, Title: ${data.title}, Body: ${data.body}`);
+      });
+    }
+  }
 
 
 function show(id) {
@@ -23,7 +33,17 @@ function show(id) {
     }
  } 
 
-function update(id, title, body) { }
+ function update(id, title, body) { 
+    let postIndex = posts.data.findIndex(post => post.id === id);
+    if (postIndex !== -1) {
+        posts.data[postIndex].title = title;
+        posts.data[postIndex].body = body;
+
+        fs.writeFileSync('./database/posts.json', JSON.stringify(posts, null, 4));
+        return true;
+    }
+    return false; 
+}
 
 function destroy(id) {
     try {
