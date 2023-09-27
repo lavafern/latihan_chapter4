@@ -21,6 +21,7 @@ function index() {
 }
 
 function show(id) {
+    //tes
     return new Promise((resolve, reject) => {
         let post = posts.data.filter(p => {
             return p.id == id;
