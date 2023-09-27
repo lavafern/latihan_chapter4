@@ -26,6 +26,8 @@ function show(id) {
         try{
 
             let result = await pool.query("SELECT * FROM posts where id = $1",[id])
+
+            if (result.rowCount < 1) reject(new Error('id not found'))
             resolve(result.rows[0])
 
         } catch (err){
@@ -54,6 +56,7 @@ function destroy(id) {
     return new Promise(async (resolve, reject) => {
         try{
             result = await pool.query("DELETE FROM posts where id = $1 RETURNING *",[id])
+            if (result.rowCount < 1) reject(new Error('id not found'))
             resolve(result.rows[0])
         } catch(err) {
             reject(err)

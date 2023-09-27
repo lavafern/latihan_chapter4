@@ -12,7 +12,7 @@ async function main() {
         // console.log(posts);
 
         // // test show detail post by id
-        // let post = await show(1);
+        // let post = await show(10);
         // console.log(post);
 
         // // test update post by id
@@ -20,7 +20,7 @@ async function main() {
         // console.log(updatedPost);
 
         // // test delete post by id
-        let deletedPost = await destroy(3);
+        let deletedPost = await destroy(13);
         console.log(deletedPost,' is succesfully deleted');
     } catch (err) {
         console.log(err);
