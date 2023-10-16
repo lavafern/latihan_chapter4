@@ -19,7 +19,6 @@ describe('test /api/v1/users()', () => {
 
             let {statusCode,body}= await request(app).post('/api/v1/users').send({email,name,password})
             user = body.data
-
             expect(statusCode).toBe(201)
             expect(body).toHaveProperty('status')
             expect(body).toHaveProperty('message')
@@ -31,6 +30,8 @@ describe('test /api/v1/users()', () => {
             expect(body.data.email).toBe(email)
             expect(body.data.name).toBe(name)
             expect(body.data.password).toBe(password)
+
+            // return user2
             
             
         } catch (err) {
@@ -79,7 +80,7 @@ describe('test getUserById()', () => {
             expect(body.data).toHaveProperty('email')
             expect(body.data).toHaveProperty('name')
             expect(body.data).toHaveProperty('password')
-            expect(body.data.id).toBe(id)
+            expect(body.data.id).toBe(id)   
             expect(body.data.email).toBe(user.email)
             expect(body.data.name).toBe(user.name)
             expect(body.data.password).toBe(user.password)
@@ -108,4 +109,90 @@ describe('test getUserById()', () => {
             expect(err).toBe('error')
         }
     })
+});
+
+
+
+////article
+
+
+
+
+describe('test /api/v1/article/:userId', () => {
+
+    test('test 1', async () => {
+        try {
+            let title = 'article title'
+            let articleBody = 'article body'
+            let userId = 9999
+            let {statusCode,_body}= await request(app).post(`/api/v1/article/${userId}`).send({title : title,body : articleBody})
+            
+
+            expect(statusCode).toBe(400)  
+            expect(_body).toHaveProperty('status')
+            expect(_body).toHaveProperty('message')
+            expect(_body).toHaveProperty('data')
+            expect(_body.status).toBe(false)
+            expect(_body.message).toBe('No User found')
+            expect(_body.data).toBe(null)
+
+        } catch (err) {
+            expect(err).toBe('error')
+        }
+    })
+
+
+    test('test 2', async () => {
+        try {
+            let title = 'article title'
+            let articleBody = ''
+            let userId = user.id
+            let {statusCode,_body}= await request(app).post(`/api/v1/article/${userId}`).send({title : title,body : articleBody})
+            
+            
+            expect(statusCode).toBe(400)  
+            expect(_body).toHaveProperty('status')
+            expect(_body).toHaveProperty('message')
+            expect(_body).toHaveProperty('data')
+            expect(_body.status).toBe(false)
+            expect(_body.message).toBe('body is empty!')
+            expect(_body.data).toBe(null)
+
+        } catch (err) {
+            expect(err).toBe('error')
+        }
+    })
+
+    test('-> berhasil' , async () => {
+        try {
+            let title = 'article title'
+            let articleBody = 'article body'
+            let userId = user.id
+            let {statusCode,_body}= await request(app).post(`/api/v1/article/${userId}`).send({title : title,body : articleBody})
+            expect(statusCode).toBe(201)
+            expect(_body).toHaveProperty('status')
+            expect(_body).toHaveProperty('message')
+            expect(_body).toHaveProperty('data')
+            expect(_body.data).toHaveProperty('id')
+            expect(_body.data).toHaveProperty('title')
+            expect(_body.data).toHaveProperty('body')
+            expect(_body.data).toHaveProperty('user_id')
+            expect(_body.data.title).toBe(title)
+            expect(_body.data.body).toBe(articleBody)
+            expect(_body.data.user_id).toBe(userId)
+            
+            
+        } catch (err) {
+            expect(err).toBe('error')
+        }
+    })
+// 
+    
 })
+
+
+
+
+
+
+

@@ -8,7 +8,7 @@ module.exports = {
         try {
             await prisma.user.findUniqueOrThrow({
                 where : {
-                    userId : userId
+                    id : userId
                 }
             })
 
