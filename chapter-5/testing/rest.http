@@ -1,7 +1,17 @@
-POST http://localhost:3000/api/v1/article/125
+POST http://localhost:3000/api/v1/articles
+Content-Type: application/json
+
+{
+    "name" : "jasonan",
+    "email":"jasin2@mail.com",
+    "password":"wpsord123"
+}
+
+###
+POST http://localhost:3000/api/v1/articles
 Content-Type: application/json
 
 {
     "title" : "article title",
-    "body" : ""
+    "body" : "ok"
 }
